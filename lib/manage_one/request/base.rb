@@ -27,6 +27,16 @@ module ManageOne
         send_request(req, uri)
       end
 
+      def put(path)
+        uri = build_uri(path)
+
+        req = Net::HTTP::Put.new(uri)
+
+        req.body = params.to_json
+
+        send_request(req, uri)
+      end
+
       def build_uri(path, uri_params = {})
         url = api_url(path)
         uri = URI(url)
@@ -48,7 +58,7 @@ module ManageOne
         puts request.to_hash
 
         response = http(uri.host, uri.port).request(request)
-
+binding.pry
         JSON.parse(response.body)
       end
 
